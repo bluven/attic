@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 28 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 28 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      <description>Hugo2 uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
+This document is a brief primer on using go templates.</description>
+    </item>
+    
+    <item>
+      <title>The trouble with soft delete</title>
+      <link>http://localhost:1313/post/the-trouble-with-soft-delete/</link>
+      <pubDate>Mon, 15 Jan 2018 22:46:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/the-trouble-with-soft-delete/</guid>
+      <description>Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:</description>
+    </item>
+    
+    <item>
+      <title>什么是REST</title>
+      <link>http://localhost:1313/post/what-is-rest/</link>
+      <pubDate>Mon, 15 Jan 2018 22:46:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/what-is-rest/</guid>
+      <description>REST是什么 REST是一种Web开发的架构风格，这种架构风格目标在于高性能，可靠性和扩展性。为了达到这个目的，开发者开发出可管理，更新时对</description>
+    </item>
+    
+    <item>
+      <title>Soft Delete vs Hard Delete</title>
+      <link>http://localhost:1313/post/soft-delete-vs-hard-delete/</link>
+      <pubDate>Mon, 15 Jan 2018 22:45:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/soft-delete-vs-hard-delete/</guid>
+      <description>About I have been part of quite a few projects where soft deleting was the trend. Over the last 3-4 years, I have had a chance to analyze the pros/cons of this approach in real world projects. This post attempts to document my observations on this trend. Soft Delete Involves setting a column like deleted_flag when the row has to be ‘deleted’</description>
+    </item>
+    
+    <item>
+      <title>SICP 语言的三要素</title>
+      <link>http://localhost:1313/post/sicp-three-elements-of-languages/</link>
+      <pubDate>Mon, 15 Jan 2018 22:40:36 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/sicp-three-elements-of-languages/</guid>
+      <description>语言的基本要素 中文： &amp;gt; 一个强有力的程序设计语言，不仅仅是一种指挥计算机执行任务的方式，它还应该成为一种框架，使我们能够在其中组织自己有关计算</description>
+    </item>
+    
+    <item>
+      <title>JWT vs JWS vs JWE</title>
+      <link>http://localhost:1313/post/jwt-jws-jwe/</link>
+      <pubDate>Mon, 15 Jan 2018 22:34:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/jwt-jws-jwe/</guid>
+      <description>JWT (JSON Web Tokens) is a compact, URL safe artifacts for passing the claims between client and the server. Unlike cookies that make sense in only in the web application context, JWT can be easily used both in web applications and RESTful APIs. They make sense for browser clients as well as command line or thick clients. However, there seems to be bit of confusion between JWT and other two</description>
+    </item>
+    
+    <item>
+      <title>关于JWT的一些概念</title>
+      <link>http://localhost:1313/post/terms-for-jwt/</link>
+      <pubDate>Mon, 15 Jan 2018 22:34:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/terms-for-jwt/</guid>
+      <description>##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code</description>
+    </item>
+    
+    <item>
+      <title>Docker Registry V2 的授权验证</title>
+      <link>http://localhost:1313/post/docker-registy-auth/</link>
+      <pubDate>Mon, 15 Jan 2018 22:04:35 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/docker-registy-auth/</guid>
+      <description>Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要</description>
+    </item>
+    
+  </channel>
+</rss>

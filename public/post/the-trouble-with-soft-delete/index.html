@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>The trouble with soft delete - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="bluven" />
+  <meta name="description" content="Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.32.4" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/the-trouble-with-soft-delete/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="The trouble with soft delete" />
+<meta property="og:description" content="Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/the-trouble-with-soft-delete/" />
+
+
+
+<meta property="article:published_time" content="2018-01-15T22:46:05&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-01-15T22:46:05&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="The trouble with soft delete">
+<meta itemprop="description" content="Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:">
+
+
+<meta itemprop="datePublished" content="2018-01-15T22:46:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-01-15T22:46:05&#43;08:00" />
+<meta itemprop="wordCount" content="2074">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="The trouble with soft delete"/>
+<meta name="twitter:description" content="Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bluven&#39;s Attic</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bluven&#39;s Attic</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">The trouble with soft delete</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-01-15 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p><strong>Soft delete</strong> is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.</p>
+
+<h2 id="tomato-tomato">Tomato, Tomato</h2>
+
+<p>I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:</p>
+
+<pre><code>SELECT * FROM Product WHERE IsDeleted = 0
+</code></pre>
+
+<p>Another style uses meaningful status codes:</p>
+
+<pre><code>SELECT * FROM Task WHERE Status = 'Pending'
+</code></pre>
+
+<p>You can even give an item a fixed lifetime that starts and ends at a specific time (it might not have started yet):</p>
+
+<pre><code>SELECT * FROM Policy WHERE GETDATE() BETWEEN StartDate AND EndDate
+</code></pre>
+
+<p>All of these styles are all flavours of the same concept: instead of pulling dead or infrequently-used items out of active set, you simply mark them and change queries to step over the corpses at runtime.</p>
+
+<p>This is a trade-off: soft delete columns are easy to implement, but incur a cost to query complexity and database performance later down the track.</p>
+
+<h2 id="complexity">Complexity</h2>
+
+<p>To prevent mixing active and inactive data in results, all queries must be made aware of the soft delete columns so they can explicitly exclude them. It’s like a tax; a mandatory WHERE clause to ensure you don’t return any deleted rows.</p>
+
+<p>This extra WHERE clause is similar to checking return codes in programming languages that don’t throw exceptions (like C). It’s very simple to do, but if you forget to do it in even one place, bugs can creep in very fast. And it is background noise that detracts away from the real intention of the query.</p>
+
+<h2 id="performance">Performance</h2>
+
+<p>At first glance you might think evaluating soft delete columns in every query would have a noticeable impact on performance.</p>
+
+<p>However, I’ve found that most RDBMSs are actually pretty good at recognizing soft delete columns (probably because they are so commonly used) and does a good job at optimizing queries that use them. In practice, filtering inactive rows doesn’t cost too much in itself.</p>
+
+<p>Instead, the performance hit comes simply from the volume of data that builds up when you don’t bother clearing old rows. For example, we have a table in a system at work that records an organisations day-to-day tasks: pending, planned, and completed. It has around five million rows in total, but of that, only a very small percentage (2%) are still active and interesting to the application. The rest are all historical; rarely used and kept only to maintain foreign key integrity and for reporting purposes.</p>
+
+<p>Interestingly, the biggest problem we have with this table is not slow read performance but writes. Due to its high use, we index the table heavily to improve query performance. But with the number of rows in the table, it takes so long to update these indexes that the application frequently times out waiting for DML commands to finish.</p>
+
+<p>This table is becoming an increasing concern for us — it represents a major portion of the application, and with around a million new rows being added each year, the performance issues are only going to get worse.</p>
+
+<h2 id="back-to-the-original-problem">Back to the original problem</h2>
+
+<p>The trouble with implementing soft delete via a column is that it simply doesn’t scale well for queries targeting multiple tables — we need a different strategy for larger data models.</p>
+
+<p>Let’s take a step back and examine the reasons why you might want to implement soft deletes in a database. If you think about it, there really are only four categories:</p>
+
+<pre><code>1. To provide an ‘undelete’ feature.
+2. Auditing.
+3. For soft create.
+4. To keep historical items.
+</code></pre>
+
+<p>Let’s look at each of these and explore what other options are available.</p>
+
+<h3 id="soft-delete-to-enable-undo">Soft delete to enable undo</h3>
+
+<p>Human error is inevitable, so it’s common practice to give users the ability to bring something back if they delete it by accident. But this functionality can be tricky to implement in a RDBMS, so first you need to ask an important question — do you really need it?</p>
+
+<p>There are two styles I have encountered that are achieved via soft delete:</p>
+
+<pre><code>1. There is an undelete feature available somewhere in the UI, or
+2. Undelete requires running commands directly against the database.
+</code></pre>
+
+<p>If there is an undo delete button available somewhere for users, then it is an important use case that needs to be factored into your code.</p>
+
+<p>But if you’re just putting soft delete columns on out of habit, and undelete still requires a developer or DBA to run a command against the database to toggle the flags back, then this is a maintenance scenario, not a use case. Implementing it will take time and add significant complexity to your data model, and add very little benefit for end users, so why bother? It’s a pretty clear YAGNI violation — in the rare case you really do need to restore deleted rows, you can just get them from the previous night’s backup.</p>
+
+<p>Otherwise, if there really is a requirement in your application for users to be able to undo deletes, there is already a well-known pattern specifically designed to take care of all your undo-related scenarios.</p>
+
+<h3 id="the-memento-pattern">The memento pattern</h3>
+
+<p>Soft delete only supports undoing deletes, but the memento pattern provides a standard means of handling all undo scenarios your application might require.</p>
+
+<p>It works by taking a snapshot of an item just before a change is made, and putting it aside in a separate store, in case a user wants to restore or rollback later. For example, in a job board application, you might have two tables: one transactional for live jobs, and an undo log that stores snapshots of jobs at previous points in time:</p>
+
+<p>If you want to restore one, you simply deserialize it and insert it back in. This is much cleaner than messing up your transactional tables with ghost items, and lets you handle all undo operations together using the same pattern.</p>
+
+<h3 id="soft-delete-for-auditing">Soft delete for auditing</h3>
+
+<p>Another common practice I have seen is using soft delete as a means of auditing: to keep a record of when an item was deleted, and who deleted it. Usually additional columns are added to store this information:</p>
+
+<p>As with undo, you should ask a couple of questions before you implement soft delete for auditing reasons:</p>
+
+<ul>
+<li>Is there a requirement to log when an item is deleted?</li>
+<li>Is there a requirement to log any other significant application events?</li>
+</ul>
+
+<p>In the past I have seen developers (myself included) automatically adding delete auditing columns like this as a convention, without questioning why it’s needed (aka cargo cult programming).</p>
+
+<p>Deleting an object is only one event we might be interested in logging. If a rogue user performs some malicious acts in your application, updates could be just as destructive so we should know about those too.</p>
+
+<pre><code>-- Log all DELETE operations on the Product table
+CREATE TRIGGER tg_Product_Delete ON Product AFTER DELETE
+AS 
+	INSERT INTO [Log]
+	(
+		[Timestamp],
+		[Table],
+		Command,
+		ID
+	)
+	SELECT
+		GETDATE(),
+		'Product',
+		'DELETE',
+		ProductID
+	FROM
+		Deleted
+
+CREATE TRIGGER tg_Product_Update ON Product AFTER UPDATE
+AS
+-- ...etc
+
+</code></pre>
+
+<h3 id="contextual-logging">Contextual logging</h3>
+
+<p>If something goes wrong in the application and we want to retrace the series of steps that led to it, CREATES, UPDATES and DELETES by themselves don’t really explain much of what the user was trying to achieve. Getting useful audit logs from DML statements alone is like trying to figure out what you did last night from just your credit card bill.</p>
+
+<p>It would be more useful if the logs were expressed in the context of the use case, not just the database commands that resulted from it. For example, if you were tracking down a bug, would you rather read this:</p>
+
+<pre><code>[09:30:24] DELETE ProductCategory 142 13 dingwallr
+</code></pre>
+
+<p>… or this?</p>
+
+<pre><code>[09:30:24] Product 'iPhone 3GS' (#142) was removed from the catalog by user dingwallr. Categories: 'Smart Phones' (#13), 'Apple' (#15).
+</code></pre>
+
+<p>Logging at the row level simply cannot provide enough context to give a true picture of what the user is doing. Instead it should be done at a higher level where you know the full use-case (e.g. application services), and the logs should be kept out of the transactional database so they can be managed separately (e.g. rolling files for each month).</p>
+
+<h3 id="soft-create">Soft create</h3>
+
+<p>The soft delete pattern can also be extended for item activation — instead of simply creating an item as part of the active set, you create it in an inactive state and flick a switch or set a date for when it should become active.</p>
+
+<p>For example:</p>
+
+<pre><code>-- Get employees who haven't started work yet
+SELECT * FROM Employee WHERE GETDATE() &amp;lt; StartDate
+</code></pre>
+
+<p>This pattern is most commonly seen in publishing systems like blogs and CMSs, but I’ve also seen it used as an important part of an ERP system for scheduling changes to policy before it comes into effect.</p>
+
+<h3 id="soft-delete-to-retain-historical-items">Soft delete to retain historical items</h3>
+
+<p>Many database-backed business applications are required to keep track of old items for historical purposes — so users can go back and see what the state of the business was six months ago, for example.</p>
+
+<p>(Alternatively, historical data is kept because the developer can’t figure out how to delete something without breaking foreign key constraints, but this really amounts to the same thing.)</p>
+
+<p>We need to keep this data somewhere, but it’s no longer immediately interesting to the application because either:</p>
+
+<ul>
+<li>The item explicitly entered a dormant state – e.g. an expired eBay listing or     deactivated Windows account, or</li>
+<li>The item was implicitly dropped from the active set – e.g. my Google Calendar appointments from last week that I will probably never look at again</li>
+</ul>
+
+<p>I haven’t included deleted items here because there are very few cases I can think of in business applications where data is simply deleted (unless it was entered in error) — usually it is just transformed from one state to another. Udi Dahan explains this well in his article <a href="http://udidahan.com/2009/09/01/dont-delete-just-dont/">Don’t Delete — Just’ Don’t</a>:</p>
+
+<blockquote>
+<p>Orders aren’t deleted – they’re cancelled. There may also be fees incurred if the order is canceled too late.</p>
+
+<p>Employees aren’t deleted – they’re fired (or possibly retired). A compensation package often needs to be handled.</p>
+
+<p>Jobs aren’t deleted – they’re filled (or their requisition is revoked).</p>
+</blockquote>
+
+<p>Unless your application is pure CRUD (e.g. data grids), these states most likely represent totally different use cases. For example, in a timesheet application, complete tasks may be used for invoicing purposes, while incomplete tasks comprise your todo list.</p>
+
+<h3 id="different-use-cases-different-query-needs">Different use cases, different query needs</h3>
+
+<p>Each use case has different query requirements, as the information the application is interested in depends on the context. To achieve optimal performance, the database should reflect this — instead of lumping differently-used sets of items together in one huge table with a flag or status code as a discriminator, consider splitting them up into separate tables.</p>
+
+<p>For example, in our job board application, we might store open, expired and filled listings using a table-per-class strategy:</p>
+
+<p>Physically separating job listings by state allows us to optimize them for different use cases — focusing on write performance for active items, and read performance for past ones, with different columns, indexes and levels of (de)normalization for each.</p>
+
+<h3 id="isn-t-this-all-overkill">Isn’t this all overkill?</h3>
+
+<p>Probably. If you’re already using soft delete and haven’t had any problems then you don’t need to worry — soft delete was a sensible trade-off for your application that hasn’t caused any serious issues so far.</p>
+
+<p>But if you’re anticipating growth, or already encountering scalability problems as dead bodies pile up in your database, you might like to look at alternatives that better satisfy your application’s requirements.</p>
+
+<p>The truth is soft delete is a poor solution for most of the problems it promises to solve. Instead, focus on what you’re actually trying to achieve. Keep everything simple and follow these guidelines:</p>
+
+<ul>
+<li>Primary transactional tables should only contain data that is valid and active right now.</li>
+<li>Do you really need to be able to undo deletes? If so, there are dedicated patterns to handle this.</li>
+<li>Audit logging at the row level sucks. Do it higher up where you know the full story.</li>
+<li>If a row doesn’t apply yet, put it in a queue until it does.</li>
+<li>Physically separate items in different states based on their query usage.</li>
+</ul>
+
+<p>Above all, make sure you’re not gold plating tables with soft delete simply out of habit!</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">bluven</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-01-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/what-is-rest/">
+            <span class="next-text nav-default">什么是REST</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+  
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yanshiyi1983@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/bluven" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/blabber2008/" class="iconfont icon-douban" title="douban"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">bluven</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+
+
+
+
+</body>
+</html>

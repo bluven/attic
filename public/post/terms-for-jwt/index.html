@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于JWT的一些概念 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="bluven" />
+  <meta name="description" content="##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.32.4" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/terms-for-jwt/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="关于JWT的一些概念" />
+<meta property="og:description" content="##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/terms-for-jwt/" />
+
+
+
+<meta property="article:published_time" content="2018-01-15T22:34:05&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-01-15T22:34:05&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="关于JWT的一些概念">
+<meta itemprop="description" content="##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code">
+
+
+<meta itemprop="datePublished" content="2018-01-15T22:34:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-01-15T22:34:05&#43;08:00" />
+<meta itemprop="wordCount" content="536">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="关于JWT的一些概念"/>
+<meta name="twitter:description" content="##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bluven&#39;s Attic</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bluven&#39;s Attic</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于JWT的一些概念</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-01-15 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p>##JSON Web Token (JWT)</p>
+
+<h3 id="introduction">Introduction</h3>
+
+<ol>
+<li><p>JWT is a compact, URL-safe means of representing claims to be transferred between two parties.  The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code (MAC) and/or encrypted.</p></li>
+
+<li><p>A string representing a set of claims as a JSON object that is encoded in a JWS or JWE, enabling the claims to be digitally signed or MACed and/or encrypted.</p></li>
+</ol>
+
+<h3 id="jwt-claims-set">JWT Claims Set</h3>
+
+<p>A JSON object that contains the claims conveyed by the JWT.</p>
+
+<h3 id="claim">Claim</h3>
+
+<p>A piece of information asserted about a subject.  A claim is represented as a name/value pair consisting of a Claim Name and a Claim Value.</p>
+
+<h3 id="claim-name">Claim Name</h3>
+
+<p>The name portion of a claim representation. A Claim Name is always a string.</p>
+
+<h3 id="claim-value">Claim Value</h3>
+
+<p>The value portion of a claim representation. A Claim Value can be any JSON value.</p>
+
+<h3 id="unsecured-jwt">Unsecured JWT</h3>
+
+<p>A JWT whose claims are not integrity protected or encrypted.</p>
+
+<h2 id="json-web-signature-jws">JSON Web Signature (JWS)</h2>
+
+<ol>
+<li><p>JSON Web Signature (JWS) represents content secured with digital signatures or Message Authentication Codes (MACs) using JSON-based data structures.  Cryptographic algorithms and identifiers for use with this specification are described in the separate JSON Web Algorithms (JWA) specification and an IANA registry defined by that specification.  Related encryption capabilities are described in the separate JSON Web Encryption (JWE) specification.</p></li>
+
+<li><p>A data structure representing a digitally signed or MACed message.</p></li>
+
+<li><p>JWS represents digitally signed or MACed content using JSON data structures and base64url encoding.</p></li>
+</ol>
+
+<h3 id="jose-header">JOSE Header</h3>
+
+<p>JSON object containing the parameters describing the cryptographic operations and parameters employed.  The JOSE (JSON Object Signing and Encryption) Header is comprised of a set of Header Parameters.</p>
+
+<h3 id="jws-payload">JWS Payload</h3>
+
+<p>The sequence of octets(八位字节数组) to be secured &ndash; a.k.a. the message. The payload can contain an arbitrary sequence of octets.</p>
+
+<h3 id="jws-signature">JWS Signature</h3>
+
+<p>Digital signature or MAC over the JWS Protected Header and the JWS Payload.</p>
+
+<h3 id="header-parameter">Header Parameter</h3>
+
+<p>A name/value pair that is member of the JOSE Header.</p>
+
+<h3 id="jws-protected-header">JWS Protected Header</h3>
+
+<p>JSON object that contains the Header Parameters that are integrity protected by the JWS Signature digital signature or MAC operation. For the JWS Compact Serialization, this comprises the entire JOSE Header.  For the JWS JSON Serialization, this is one component of the JOSE Header.</p>
+
+<h3 id="jws-unprotected-header">JWS Unprotected Header</h3>
+
+<p>JSON object that contains the Header Parameters that are not integrity protected.  This can only be present when using the JWS JSON Serialization.</p>
+
+<h3 id="jws-compact-serialization">JWS Compact Serialization</h3>
+
+<p>A representation of the JWS as a compact, URL-safe string.</p>
+
+<h3 id="jws-json-serialization">JWS JSON Serialization</h3>
+
+<p>A representation of the JWS as a JSON object.  Unlike the JWS Compact Serialization, the JWS JSON Serialization enables multiple digital signatures and/or MACs to be applied to the same content. This representation is neither optimized for compactness nor URL-safe.</p>
+
+<h3 id="unsecured-jws">Unsecured JWS</h3>
+
+<p>A JWS that provides no integrity protection. Unsecured JWSs use the &ldquo;alg&rdquo; value &ldquo;none&rdquo;.</p>
+
+<h2 id="json-web-encryption-jwe">JSON Web Encryption (JWE)</h2>
+
+<ol>
+<li><p>JSON Web Encryption (JWE) represents encrypted content using JSON-based data structures.</p></li>
+
+<li><p>A data structure representing an encrypted and integrity-protected message.</p></li>
+</ol>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">bluven</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-01-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/jwt-jws-jwe/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">JWT vs JWS vs JWE</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/docker-registy-auth/">
+            <span class="next-text nav-default">Docker Registry V2 的授权验证</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+  
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yanshiyi1983@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/bluven" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/blabber2008/" class="iconfont icon-douban" title="douban"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">bluven</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+
+
+
+
+</body>
+</html>

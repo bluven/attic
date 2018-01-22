@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="bluven" />
+  <meta name="description" content="Bluven&#39;s attic." />
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.32.4" />
+
+
+<link rel="canonical" href="http://localhost:1313/" />
+<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Even - A super concise theme for Hugo" />
+  <link href="http://localhost:1313/index.xml" rel="feed" type="application/rss+xml" title="Even - A super concise theme for Hugo" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Even - A super concise theme for Hugo" />
+<meta property="og:description" content="Bluven&#39;s attic." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:1313/" />
+
+
+
+<meta property="og:updated_time" content="2014-07-28T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Even - A super concise theme for Hugo">
+<meta itemprop="description" content="Bluven&#39;s attic.">
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Even - A super concise theme for Hugo"/>
+<meta name="twitter:description" content="Bluven&#39;s attic."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bluven&#39;s Attic</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bluven&#39;s Attic</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/the-trouble-with-soft-delete/">The trouble with soft delete</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Soft delete is a commonly-used pattern amongst database-driven business applications. In my experience, however, it usually ends up causing more harm than good. Here’s a few reasons why it can fail in bigger applications, and some less-painful alternatives to consider.
+Tomato, Tomato I’ve seen a few different implementations of this pattern in action. First is the standard deleted flag to indicate an item should be ignored:
+SELECT * FROM Product WHERE IsDeleted = 0  Another style uses meaningful status codes:
+    </div>
+    <div class="read-more">
+      <a href="/post/the-trouble-with-soft-delete/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/what-is-rest/">什么是REST</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      REST是什么 REST是一种Web开发的架构风格，这种架构风格目标在于高性能，可靠性和扩展性。为了达到这个目的，开发者开发出可管理，更新时对
+    </div>
+    <div class="read-more">
+      <a href="/post/what-is-rest/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/soft-delete-vs-hard-delete/">Soft Delete vs Hard Delete</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      About I have been part of quite a few projects where soft deleting was the trend. Over the last 3-4 years, I have had a chance to analyze the pros/cons of this approach in real world projects. This post attempts to document my observations on this trend. Soft Delete Involves setting a column like deleted_flag when the row has to be ‘deleted’
+    </div>
+    <div class="read-more">
+      <a href="/post/soft-delete-vs-hard-delete/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/sicp-three-elements-of-languages/">SICP 语言的三要素</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      语言的基本要素 中文： &gt; 一个强有力的程序设计语言，不仅仅是一种指挥计算机执行任务的方式，它还应该成为一种框架，使我们能够在其中组织自己有关计算
+    </div>
+    <div class="read-more">
+      <a href="/post/sicp-three-elements-of-languages/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/jwt-jws-jwe/">JWT vs JWS vs JWE</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      JWT (JSON Web Tokens) is a compact, URL safe artifacts for passing the claims between client and the server. Unlike cookies that make sense in only in the web application context, JWT can be easily used both in web applications and RESTful APIs. They make sense for browser clients as well as command line or thick clients. However, there seems to be bit of confusion between JWT and other two
+    </div>
+    <div class="read-more">
+      <a href="/post/jwt-jws-jwe/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/terms-for-jwt/">关于JWT的一些概念</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      ##JSON Web Token (JWT) Introduction JWT is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or integrity protected with a Message Authentication Code
+    </div>
+    <div class="read-more">
+      <a href="/post/terms-for-jwt/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/docker-registy-auth/">Docker Registry V2 的授权验证</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-01-15 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要
+    </div>
+    <div class="read-more">
+      <a href="/post/docker-registy-auth/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+  </section>
+  
+  <nav class="pagination">
+    
+  </nav>
+
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yanshiyi1983@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/bluven" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/blabber2008/" class="iconfont icon-douban" title="douban"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">bluven</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+
+
+
+
+</body>
+</html>

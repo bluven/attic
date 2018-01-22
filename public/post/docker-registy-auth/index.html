@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker Registry V2 的授权验证 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="bluven" />
+  <meta name="description" content="Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.32.4" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/docker-registy-auth/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Docker Registry V2 的授权验证" />
+<meta property="og:description" content="Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/docker-registy-auth/" />
+
+
+
+<meta property="article:published_time" content="2018-01-15T22:04:35&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-01-15T22:04:35&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Docker Registry V2 的授权验证">
+<meta itemprop="description" content="Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要">
+
+
+<meta itemprop="datePublished" content="2018-01-15T22:04:35&#43;08:00" />
+<meta itemprop="dateModified" content="2018-01-15T22:04:35&#43;08:00" />
+<meta itemprop="wordCount" content="1435">
+
+
+
+<meta itemprop="keywords" content="test," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Docker Registry V2 的授权验证"/>
+<meta name="twitter:description" content="Docker Registry是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bluven&#39;s Attic</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bluven&#39;s Attic</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker Registry V2 的授权验证</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-01-15 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p><strong>Docker Registry</strong>是一个无状态，高可扩展的Docker镜像发布与存储的服务器端应用。 通常我们可以将镜像提交到官方或者其他服务，但有时候也需要自己部署个人或公司的Registry。</p>
+
+<p>本文不讲解Docker Registry的部署，只讲解如何做授权。</p>
+
+<p>Docker Registry自身不提供授权服务器，而是把授权委托给第三方。一次完整的请求过程如下所示：</p>
+
+<p><img src="/images/post/docker-registry-auth/v2-registry-auth.png" alt="v2-registry-auth" /></p>
+
+<ol>
+<li>Attempt to begin a push/pull operation with the registry.</li>
+<li>If the registry requires authorization it will return a 401 Unauthorized HTTP response with information on how to authenticate.</li>
+<li>The registry client makes a request to the authorization service for a Bearer token.</li>
+<li>The authorization service returns an opaque Bearer token representing the client’s authorized access.</li>
+<li>The client retries the original request with the Bearer token embedded in the request’s Authorization header.</li>
+<li>The Registry authorizes the client by validating the Bearer token and the claim set embedded within it and begins the push/pull session as usual.</li>
+</ol>
+
+<h2 id="发起请求">发起请求</h2>
+
+<p>当你调用<code>docker login</code>, <code>docker pull</code>或者<code>docker push</code>的时候， docker命令都是向默认的registry服务(registry-1.docker.io)发起HTTP请求，如果请求携带的授权信息不够，Registry服务会拒绝服务，返回一个401状态码的响应, 例如：</p>
+
+<p>如果用户执行命令：</p>
+
+<p><code>docker push repository:samalba/my-app:latest</code></p>
+
+<p>在未登录的情况下，Registry服务会返回如下响应：</p>
+
+<pre><code>HTTP/1.1 401 Unauthorized
+Content-Type: application/json; charset=utf-8
+Docker-Distribution-Api-Version: registry/2.0
+Www-Authenticate: Bearer realm=&quot;https://auth.docker.io/token&quot;,service=&quot;registry.docker.io&quot;,scope=&quot;repository:samalba/my-app:pull,push&quot;
+Date: Thu, 10 Sep 2015 19:32:31 GMT
+Content-Length: 235
+Strict-Transport-Security: max-age=31536000
+
+{&quot;errors&quot;:[{&quot;code&quot;:&quot;UNAUTHORIZED&quot;,&quot;message&quot;:&quot;access to the requested resource is not authorized&quot;,&quot;detail&quot;:[{&quot;Type&quot;:&quot;repository&quot;,&quot;Name&quot;:&quot;samalba/my-app&quot;,&quot;Action&quot;:&quot;pull&quot;},{&quot;Type&quot;:&quot;repository&quot;,&quot;Name&quot;:&quot;samalba/my-app&quot;,&quot;Action&quot;:&quot;push&quot;}]}]}
+</code></pre>
+
+<p>这个响应告诉客户端(docker client及其他客户端）如何及去哪儿里获取授权(Docker Registry v2 Bearer token)。</p>
+
+<p>头信息里有三个信息：</p>
+
+<ul>
+<li>service.</li>
+<li>scope</li>
+<li>realm
+<br /></li>
+</ul>
+
+<p>其中service是registry自己，realm授权服务器(authorization server)的地址，scope是要处理的资源及动作。</p>
+
+<p>scope的格式有3个部分：</p>
+
+<ul>
+<li>资源类型。目前而言有两个:registry, repository</li>
+<li>资源名称。samalba/my-app</li>
+<li>请求的动作。 pull，push，*。</li>
+</ul>
+
+<h2 id="获取授权">获取授权</h2>
+
+<p>用401 回应里信息向授权服务器发起请求(GET):</p>
+
+<pre><code>https://auth.docker.io/token?service=registry.docker.io&amp;scope=repository:samalba/my-app:pull,push
+
+</code></pre>
+
+<p>除了必须的service跟scope参数外，还可以附加其他信息，例如：offline_token， client_id。 scope一次可以传送多个。</p>
+
+<p>授权服务器可以自己实现，也可以利用现成的。不管是那种方式，授权服务器必须支持Basic Auth，因为：Docker client目前只支持Basic Auth。</p>
+
+<blockquote>
+<p>From Docker 1.11 the Docker engine supports both Basic Authentication and OAuth2 for getting tokens. Docker 1.10 and before, the registry client in the Docker Engine only supports Basic Authentication.</p>
+</blockquote>
+
+<p>如果你提交的身份信息无误，授权服务器应该根据自己的策略检查你的申请。比如资源不是公开的，那么只有提交者自己能够下载，或者资源是公开的，但不是你的，那么push操作会被禁止。</p>
+
+<blockquote>
+<p>After authenticating the client (which may simply be an anonymous client if no attempt was made to authenticate), the token server must next query its access control list to determine whether the client has the requested scope. In this example request, if I have authenticated as user jlhawn, the token server will determine what access I have to the repository samalba/my-app hosted by the entity registry.docker.io.</p>
+
+<p>Once the token server has determined what access the client has to the resources requested in the scope parameter, it will take the intersection of the set of requested actions on each resource and the set of actions that the client has in fact been granted. If the client only has a subset of the requested access it must not be considered an error as it is not the responsibility of the token server to indicate authorization errors as part of this workflow.</p>
+
+<p>Continuing with the example request, the token server will find that the client’s set of granted access to the repository is [pull, push] which when intersected with the requested access [pull, push] yields an equal set. If the granted access set was found only to be [pull] then the intersected set would only be [pull]. If the client has no access to the repository then the intersected set would be empty, [].</p>
+
+<p>It is this intersected set of access which is placed in the returned token.</p>
+</blockquote>
+
+<p>那么授权服务器应该返回一个json格式的token响应，里面会包含如下内容：</p>
+
+<ul>
+<li>token</li>
+<li>access_token</li>
+<li>expires_in</li>
+<li>issued_at</li>
+<li>refresh_token
+<br /></li>
+</ul>
+
+<p>token或者access_token的作用是一样的，只是名字不同，但是响应里必须有其中一个；其他的三个字段则是可选的。</p>
+
+<pre><code>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{&quot;token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IlBZWU86VEVXVTpWN0pIOjI2SlY6QVFUWjpMSkMzOlNYVko6WEdIQTozNEYyOjJMQVE6WlJNSzpaN1E2In0.eyJpc3MiOiJhdXRoLmRvY2tlci5jb20iLCJzdWIiOiJqbGhhd24iLCJhdWQiOiJyZWdpc3RyeS5kb2NrZXIuY29tIiwiZXhwIjoxNDE1Mzg3MzE1LCJuYmYiOjE0MTUzODcwMTUsImlhdCI6MTQxNTM4NzAxNSwianRpIjoidFlKQ08xYzZjbnl5N2tBbjBjN3JLUGdiVjFIMWJGd3MiLCJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InNhbWFsYmEvbXktYXBwIiwiYWN0aW9ucyI6WyJwdXNoIl19XX0.QhflHPfbd6eVF4lM9bwYpFZIV0PfikbyXuLx959ykRTBpe3CYnzs6YBK8FToVb5R47920PVLrh8zuLzdCr9t3w&quot;, &quot;expires_in&quot;: 3600,&quot;issued_at&quot;: &quot;2009-11-10T23:00:00Z&quot;}
+
+</code></pre>
+
+<h2 id="使用token">使用token</h2>
+
+<p>当获取token后，在随后的请求携带Authorization header：</p>
+
+<pre><code>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IkJWM0Q6MkFWWjpVQjVaOktJQVA6SU5QTDo1RU42Ok40SjQ6Nk1XTzpEUktFOkJWUUs6M0ZKTDpQT1RMIn0.eyJpc3MiOiJhdXRoLmRvY2tlci5jb20iLCJzdWIiOiJCQ0NZOk9VNlo6UUVKNTpXTjJDOjJBVkM6WTdZRDpBM0xZOjQ1VVc6NE9HRDpLQUxMOkNOSjU6NUlVTCIsImF1ZCI6InJlZ2lzdHJ5LmRvY2tlci5jb20iLCJleHAiOjE0MTUzODczMTUsIm5iZiI6MTQxNTM4NzAxNSwiaWF0IjoxNDE1Mzg3MDE1LCJqdGkiOiJ0WUpDTzFjNmNueXk3a0FuMGM3cktQZ2JWMUgxYkZ3cyIsInNjb3BlIjoiamxoYXduOnJlcG9zaXRvcnk6c2FtYWxiYS9teS1hcHA6cHVzaCxwdWxsIGpsaGF3bjpuYW1lc3BhY2U6c2FtYWxiYTpwdWxsIn0.Y3zZSwaZPqy4y9oRBVRImZyv3m_S9XDHF1tWwN7mL52C_IiA73SJkWVNsvNqpJIn5h7A2F8biv_S2ppQ1lgkbw
+</code></pre>
+
+<p><em>官方文档：<a href="https://docs.docker.com/registry/spec/auth/token/">https://docs.docker.com/registry/spec/auth/token/</a></em></p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">bluven</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-01-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/test/">test</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/terms-for-jwt/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于JWT的一些概念</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+  
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yanshiyi1983@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/bluven" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/blabber2008/" class="iconfont icon-douban" title="douban"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">bluven</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+
+
+
+
+</body>
+</html>
